@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Time</title>
+
+    <!-- 透過 CDN (Content Delivery Network) 的方式將檔案加入 -->
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <!-- bootstrap所需 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        body {
+            background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("img/bg03.jpg");
+            font-family: "Microsoft JhengHei", Arial, Helvetica, sans-serif;
+            font-size: 1em;
+            line-height: 1.2em;
+            color: white;
+        }
+
+        .area {
+            position: relative;
+            margin: 100px auto;
+            padding: 10px 10px;
+            background-color: blue;
+            border: 2px rgb(187, 182, 182) solid;
+            border-radius: 30px;
+            width: 430px;  height: 360px;
+            box-shadow: 5px 7px 10px -4px rgba(0, 0, 0, 0.8);
+        }
+
+       
+
+        select {
+            width: 380px;
+            height: 30px;
+            background-color: rgb(73, 65, 65);
+            border-radius: 5px;
+            margin: 10px 15px;
+            box-shadow: 5px 7px 10px -4px rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 18px
+        }
+
+        input {
+            position: absolute;
+            width: 100px;
+            height: 40px;
+            background-color: rgb(14, 83, 14);
+            border-radius: 5px;
+            margin: 2px 150px;
+            box-shadow: 5px 7px 10px -4px rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 18px
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <!-- 全省威秀影城隔週電影新場次公布於每週二晚間23:59 -->
+    <!-- (假設週二整天只能查到：週二 週三 週四) -->
+    <!-- 會開放未來一週(週三會查到：今天到下星期四)之場次 -->
+    <div class="area">
+
+        <h2 style="text-align:center;">威秀影城訂票規則概述</h2>
+
+        <form class="">
+            <select class="" id="">
+                <option value="">能選擇影城</option>
+                <option value="">台北信義威秀影城</option>
+                <option value="">板橋大遠百威秀影城</option>
+                <option value="">林口MITSUI OUTLET PARK威秀影城</option>
+                <option value="">桃園威秀影城</option>
+                <option value="">新竹威秀影城</option>
+                <option value="">台中威秀影城</option>
+                <option value="">台南威秀影城</option>
+                <option value="">高雄威秀影城</option>
+                <option value="">花蓮威秀影城</option>
+            </select>
+
+            <select id="select1">
+                <option>今日的星期 (以下假設為同一周)</option>
+                <option value="1">星期一</option>
+                <option value="2">星期二</option>
+                <option value="3">星期三</option>
+                <option value="4">星期四</option>
+                <option value="5">星期五</option>
+                <option value="6">星期六</option>
+                <option value="7">星期日</option>
+            </select>
+
+            <select id="select2">
+                <option>能選片的星期(未定)</option>
+            </select>
+
+            <select>
+                <option value="">當日選片時段</option>
+                <option value="06:00">06:00 AM</option>
+                <option value="07:00">07:00 AM</option>
+                <option value="08:00">08:00 AM</option>
+                <option value="09:00">09:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="13:00">01:00 PM</option>
+                <option value="14:00">02:00 PM</option>
+                <option value="15:00">03:00 PM</option>
+                <option value="16:00">04:00 PM</option>
+                <option value="17:00">05:00 PM</option>
+                <option value="18:00">06:00 PM</option>
+                <option value="19:00">07:00 PM</option>
+                <option value="20:00">08:00 PM</option>
+                <option value="21:00">09:00 PM</option>
+                <option value="22:00">10:00 PM</option>
+                <option value="23:00">11:00 PM</option>
+                <option value="00:00">00:00 AM</option>
+                <option value="01:00">01:00 AM</option>
+                <option value="02:00">02:00 AM</option>
+                <option value="03:00">03:00 AM</option>
+                <option value="04:00">04:00 AM</option>
+                <option value="05:00">05:00 AM</option>
+            </select>
+
+            <select id="select3">
+                <option>所提供的影片</option>
+            </select>
+
+            <br>
+            <input type="submit" value="前往訂票" onclick="test()">
+        </form>
+    </div>
+
+    <script>
+        // 搜尋按鈕點下的時候，進行資料搜尋，並且將符合的資料帶入到畫面上
+        $("#select1").change(function () {
+            $("#select2").empty();
+            var stander = $("#select1").prop("value");
+
+            if (stander == 1) {
+
+                let result = '';
+                result += `<option>能選片的星期(請選擇)</option>`;
+                result += `<option>星期一(當天)</option>`;
+                result += `<option>星期二(本周)</option>`;
+                // 把結果 放到畫面上
+                $("#select2").append(result);
+
+            } else if (stander == 2) {
+
+                let result = '';
+                result += `<option>能選片的星期(請選擇)</option>`;
+                result += `<option>星期二(本周)</option>`;
+                // 把結果 放到畫面上
+                $("#select2").html(result);
+
+            } else if (stander == 3) {
+
+                var result = '';
+                result += `<option>能選片的星期(請選擇)</option>`;
+                result += `<option>星期三(當天)</option>`;
+                result += `<option>星期四(本周)</option>`;
+                result += `<option>星期五(本周)</option>`;
+                result += `<option>星期六(本周)</option>`;
+                result += `<option>星期日(本周)</option>`;
+                result += `<option>星期ㄧ(下周)</option>`;
+                result += `<option>星期二(下周)</option>`;
+                // 把結果 放到畫面上
+                $("#select2").html(result);
+
+            } else if (stander == 4) {
+
+                let result = '';
+                result += `<option>能選片的星期(請選擇)</option>`;
+                result += `<option>星期四(當天)</option>`;
+                result += `<option>星期五(本周)</option>`;
+                result += `<option>星期六(本周)</option>`;
+                result += `<option>星期日(本周)</option>`;
+                result += `<option>星期ㄧ(下周)</option>`;
+                result += `<option>星期二(下周)</option>`;
+                // 把結果 放到畫面上
+                $("#select2").html(result);
+
+
+            } else if (stander == 5) {
+
+                let result = '';
+                result += `<option>能選片的星期(請選擇)</option>`;
+                result += `<option>星期五(當天)</option>`;
+                result += `<option>星期六(本周)</option>`;
+                result += `<option>星期日(本周)</option>`;
+                result += `<option>星期ㄧ(下周)</option>`;
+                result += `<option>星期二(下周)</option>`;
+                // 把結果 放到畫面上
+                $("#select2").html(result);
+
+            } else if (stander == 6) {
+
+                let result = '';
+                result += `<option>能選片的星期(請選擇)</option>`;
+                result += `<option>星期六(當天)</option>`;
+                result += `<option>星期日(本周)</option>`;
+                result += `<option>星期ㄧ(下周)</option>`;
+                result += `<option>星期二(下周)</option>`;
+                // 把結果 放到畫面上
+                $("#select2").html(result);
+
+            } else if (stander == 7) {
+
+                let result = '';
+                result += `<option>能選片的星期(請選擇)</option>`;
+                result += `<option>星期日(當天)</option>`;
+                result += `<option>星期ㄧ(下周)</option>`;
+                result += `<option>星期二(下周)</option>`;
+                // 把結果 放到畫面上
+                $('#select2').html(result);
+
+            }
+        });
+
+        $("#select2").change(function () {
+            $("#select3").empty();
+           
+                let result = '';
+                result += `<option>本網僅為示意網，故不提供片影，請見諒。</option>`;
+                // 把結果 放到畫面上
+                $("#select3").append(result);
+
+        });
+
+
+
+        function test() {
+            alert("請自行至  https://www.vscinemas.com.tw/vsweb/  訂票。")
+        }
+    </script>
+
+
+
+    <!-- bootstrap所需 -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>
