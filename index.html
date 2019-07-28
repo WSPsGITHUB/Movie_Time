@@ -85,7 +85,7 @@
             </select>
 
             <select id="select1">
-                <option>今日的星期 (以下假設為同一周)</option>
+                <option>今日星期X (請先選擇/確定)</option>
                 <option value="1">星期一</option>
                 <option value="2">星期二</option>
                 <option value="3">星期三</option>
@@ -96,7 +96,7 @@
             </select>
 
             <select id="select2">
-                <option>能選片的星期(未定)</option>
+                <option>能選片的星期(未確定)</option>
             </select>
 
             <select>
@@ -128,7 +128,7 @@
             </select>
 
             <select id="select3">
-                <option>所提供的影片</option>
+                <option>能提供的影片(未確定)</option>
             </select>
 
             <br>
@@ -227,6 +227,7 @@
             $("#select3").empty();
            
                 let result = '';
+                result += `<option>能提供的影片(請選擇)。</option>`;
                 result += `<option>本網僅為示意網，故不提供片影，請見諒。</option>`;
                 // 把結果 放到畫面上
                 $("#select3").append(result);
